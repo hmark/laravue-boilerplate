@@ -8,7 +8,7 @@
     </head>
     <body class="antialiased">
         <div id="app">
-            <home />
+            <dashboard />
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
