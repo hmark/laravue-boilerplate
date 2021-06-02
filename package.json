@@ -24,6 +24,7 @@
         "webpack-cli": "^4.7.0"
     },
     "dependencies": {
+        "css.gg": "^2.0.0",
         "vue": "^3.0.11"
     }
 }

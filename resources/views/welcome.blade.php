@@ -7,7 +7,7 @@
         <link rel="stylesheet" href={{ asset('css/app.css') }}>
     </head>
     <body class="antialiased">
-        <div id="app" class="flex items-center bg-gray-100 min-h-screen">
+        <div id="app">
             <home />
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
