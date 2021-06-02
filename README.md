@@ -1,4 +1,11 @@
-# Laravel 8 + Vue 3 + Bootstrap 5 - Boilerplate project
+# Laravue Boilerplate project
+
+## Tech Stack
+
+-   Laravel 8
+-   Vue 3
+-   Bootstrap 5
+-   Css.gg icons
 
 ## Setup
 
