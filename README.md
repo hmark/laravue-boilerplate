@@ -1,4 +1,4 @@
-# Laravel 8 Boilerplate project
+# Laravel 8 + Vue 3 - Boilerplate project
 
 ## Setup
 
