@@ -19,7 +19,6 @@
 
 ## TODO
 
--   Add frontend routing
 -   Add auth api routes
 -   Add auth frontend implementation (register, login, logout)
 -   Add api error responses to Handler
