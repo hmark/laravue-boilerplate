@@ -2,12 +2,7 @@ require('./bootstrap');
 
 import "bootstrap";
 import { createApp } from "vue";
-import Dashboard from "./components/Dashboard.vue";
+import Layout from './components/Layout'
+import router from './router'
 
-const app = createApp({
-    components: {
-        Dashboard
-    }
-});
-
-app.mount("#app");
+createApp(Layout).use(router).mount('#app');
