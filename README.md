@@ -19,8 +19,6 @@
 
 ## TODO
 
--   Add auth api routes
--   Add auth frontend implementation (register, login, logout)
 -   Add api error responses to Handler
 -   Add response errors display to frontend
 -   Inject locale into frontend
