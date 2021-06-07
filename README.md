@@ -34,3 +34,5 @@
 -   Restrict access for development assets in production environment
 -   Replace BenSampo Enums with native PHP 8.1 enums
 -   Replace ThrottlesLogins class with Laravel 8 Improved Rate Limitting and remove Laravel/ui dependency
+-   Add auth tests
+-   Use vuex for storing auth user instead of reloading page after register/login

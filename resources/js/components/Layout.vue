@@ -4,10 +4,15 @@
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-    <ul class="navbar-nav px-3">
-      <li class="nav-item text-nowrap">
-        <a class="nav-link" href="#">Sign out</a>
+    <ul class="navbar-nav px-3 flex-row ">
+      <li v-if="!config.isAuth" class="nav-item">
+        <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a>
+      </li>
+      <li v-if="!config.isAuth" class="nav-item">
+        <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-register">Register</a>
+      </li>
+      <li v-if="config.isAuth" class="nav-item text-nowrap">
+        <a @click.prevent="logout()" class="nav-link" href="#">Logout</a>
       </li>
     </ul>
   </header>
@@ -18,7 +23,7 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <router-link to="/" class="nav-link active">
+              <router-link to="/" class="nav-link">
                 <i class="gg-home-alt"></i>
                 Dashboard
               </router-link>
@@ -35,9 +40,30 @@
 
       <router-view></router-view>
     </div>
+    <modal-register></modal-register>
+    <modal-login></modal-login>
   </div>
 </template>
 
 <script>
-export default {};
+import ModalRegister from "@/components/ModalRegister";
+import ModalLogin from "@/components/ModalLogin";
+import Api from "@/api.js";
+
+export default {
+  components: { ModalLogin, ModalRegister },
+
+  computed: {
+    config: function () {
+      return window.config;
+    },
+  },
+  methods: {
+    logout() {
+      Api.logout().then((response) => {
+        window.location.href = "/";
+      });
+    },
+  },
+};
 </script>

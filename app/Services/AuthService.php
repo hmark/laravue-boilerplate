@@ -40,7 +40,7 @@ class AuthService
         }
 
         if (Auth::attempt([
-            'name' => $data['name'],
+            'email' => $data['email'],
             'password' => $data['password'],
         ], $data['remember'])) {
             $request->session()->regenerate();

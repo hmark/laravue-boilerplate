@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Enums\Error;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -34,8 +35,20 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (AppException $e, $request) {
+            if ($e->type->is(Error::InvalidInput())) {
+                $response = [
+                    'error' => $e->type->key,
+                    'message' => $e->data[array_keys($e->data)[0]][0],
+                ];
+            } else {
+                $response = [
+                    'error' => $e->type->key,
+                    'message' => config('errors.' . $e->type->value),
+                ];
+            }
+
+            return response()->json($response, 400);
         });
     }
 }

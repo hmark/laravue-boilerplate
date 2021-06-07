@@ -10,6 +10,11 @@
         <div id="app">
             <dashboard />
         </div>
+        <script>
+            window.config = <?php echo json_encode([
+                'isAuth' => auth()->check(),
+            ]); ?>
+        </script>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
