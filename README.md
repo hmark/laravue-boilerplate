@@ -29,13 +29,13 @@
 
 ## TODO
 
--   Add response errors display to frontend by extending frontend validation library functionality
+-   Add server errors display in form after submit
 -   Add Laravel Sanctum for communicaton between frontend and backend
 -   Replace ThrottlesLogins class with Laravel 8 Improved Rate Limitting and remove Laravel/ui dependency
 -   Add loader to submit buttons when waiting for server response
 -   Add Vee-validate error messages i18n support
 -   Add Vee-validate form checkbox boolean rule
--   Use vuex for storing auth user instead of reloading page after register/login
+-   Use Vuex for storing auth user instead of reloading page after register/login
 -   Add admin role
 -   Add admin interface support
 -   Add resources crud support
