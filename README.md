@@ -19,7 +19,6 @@
 
 ## TODO
 
--   Add api error responses to Handler
 -   Add response errors display to frontend
 -   Inject locale into frontend
 -   Add DTOs support
