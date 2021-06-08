@@ -2,13 +2,16 @@
 
 namespace App\Services;
 
+use App\Dtos\I18n\GetLanguageDto;
 use App\Enums\Language;
 use Illuminate\Support\Facades\Cache;
 
 class I18nService
 {
-    public function getLanguage($lang)
+    public function getLanguage(GetLanguageDto $dto)
     {
+        $lang = $dto->language;
+
         $gzipJsonEncodedStrings = Cache::rememberForever('i18n.' . $lang . '.js', function () use ($lang) {
             $files = glob(resource_path('lang/' . $lang . '/*.php'));
             $strings = [];

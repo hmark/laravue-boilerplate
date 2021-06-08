@@ -10,7 +10,7 @@ class I18nController extends Controller
 {
     public function getLanguage(GetLanguageRequest $request, I18nService $i18nService)
     {
-        $gzipJsonEncodedStrings = $i18nService->getLanguage($request->validated()['lang']);
+        $gzipJsonEncodedStrings = $i18nService->getLanguage($request->getDto());
 
         header('Content-Type: text/javascript');
         header('Content-Encoding: gzip');

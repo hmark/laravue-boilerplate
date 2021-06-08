@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Dtos\Auth\RegisterDto;
 use App\Http\Requests\Request;
 
 class RegisterRequest extends Request
@@ -18,5 +19,16 @@ class RegisterRequest extends Request
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ];
+    }
+
+    public function getDto(): RegisterDto
+    {
+        $data = $this->validated();
+
+        return new RegisterDto(
+            $data['name'],
+            $data['email'],
+            $data['password'],
+        );
     }
 }

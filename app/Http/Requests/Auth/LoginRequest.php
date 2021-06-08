@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Dtos\Auth\LoginDto;
 use App\Http\Requests\Request;
 
 class LoginRequest extends Request
@@ -18,5 +19,16 @@ class LoginRequest extends Request
             'password' => 'required|string',
             'remember' => 'required|boolean',
         ];
+    }
+
+    public function getDto(): LoginDto
+    {
+        $data = $this->validated();
+
+        return new LoginDto(
+            $data['email'],
+            $data['password'],
+            $data['remember'],
+        );
     }
 }

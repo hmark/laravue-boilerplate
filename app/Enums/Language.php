@@ -6,5 +6,5 @@ use BenSampo\Enum\Enum;
 
 class Language extends Enum
 {
-    public const en = 'English';
+    public const en = 'en';
 }

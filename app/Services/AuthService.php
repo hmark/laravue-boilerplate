@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Dtos\Auth\LoginDto;
+use App\Dtos\Auth\RegisterDto;
 use App\Enums\Error;
 use App\Exceptions\AppException;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -19,13 +21,13 @@ class AuthService
         $this->userService = $userService;
     }
 
-    public function register($data)
+    public function register(RegisterDto $dto)
     {
-        $user = $this->userService->create($data);
+        $user = $this->userService->create($dto);
         Auth::login($user);
     }
 
-    public function login($data)
+    public function login(LoginDto $dto)
     {
         $request = request();
 
@@ -40,9 +42,9 @@ class AuthService
         }
 
         if (Auth::attempt([
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ], $data['remember'])) {
+            'email' => $dto->email,
+            'password' => $dto->password,
+        ], $dto->remember)) {
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
         } else {

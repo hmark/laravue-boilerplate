@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\I18n;
 
+use App\Dtos\I18n\GetLanguageDto;
+use App\Enums\Language;
 use App\Http\Requests\Request;
 
 class GetLanguageRequest extends Request
@@ -14,7 +16,16 @@ class GetLanguageRequest extends Request
     public function rules()
     {
         return [
-            'lang' => 'required',
+            'lang' => 'required|enum_key:' . Language::class,
         ];
+    }
+
+    public function getDto(): GetLanguageDto
+    {
+        $data = $this->validated();
+
+        return new GetLanguageDto(
+            Language::fromValue($data['lang']),
+        );
     }
 }

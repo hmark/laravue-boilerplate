@@ -2,17 +2,18 @@
 
 namespace App\Services;
 
+use App\Dtos\Auth\RegisterDto;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public function create($data)
+    public function create(RegisterDto $dto): User
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $dto->name,
+            'email' => $dto->email,
+            'password' => Hash::make($dto->password),
         ]);
     }
 }
