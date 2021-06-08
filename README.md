@@ -8,6 +8,11 @@
 -   Css.gg icons
 -   Laravel BenSampo Enums
 
+## Features
+
+-   Auth (register, login, logout)
+-   I18n support for Vue with backend caching
+
 ## Setup
 
 -   Clone repository
