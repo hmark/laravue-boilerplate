@@ -15,6 +15,7 @@
 -   Auth (register, login, logout)
 -   I18n support for Vue with backend caching
 -   Error handling support
+-   Requests DTOs scaffolding
 
 ## Setup
 
@@ -27,7 +28,6 @@
 
 ## TODO
 
--   Add DTOs support
 -   Add resources crud support
 -   Add client-server time sync using ISO format and frontend library (luxon?)
 -   Add frontend forms validation library (vee-validate?)
