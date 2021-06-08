@@ -15,7 +15,7 @@
 -   Auth (register, login, logout)
 -   I18n support for Vue with backend caching
 -   Error handling support
--   Requests DTOs scaffolding
+-   Requests DTO scaffolding
 
 ## Setup
 
