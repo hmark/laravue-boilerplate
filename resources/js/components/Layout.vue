@@ -1,18 +1,18 @@
 <template>
   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">{{__('breadcrumbs.home')}}</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="navbar-nav px-3 flex-row ">
       <li v-if="!config.isAuth" class="nav-item">
-        <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a>
+        <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-login">{{__('breadcrumbs.login')}}</a>
       </li>
       <li v-if="!config.isAuth" class="nav-item">
-        <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-register">Register</a>
+        <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-register">{{__('breadcrumbs.register')}}</a>
       </li>
       <li v-if="config.isAuth" class="nav-item text-nowrap">
-        <a @click.prevent="logout()" class="nav-link" href="#">Logout</a>
+        <a @click.prevent="logout()" class="nav-link" href="#">{{__('actions.logout')}}</a>
       </li>
     </ul>
   </header>
@@ -25,13 +25,13 @@
             <li class="nav-item">
               <router-link to="/" class="nav-link">
                 <i class="gg-home-alt"></i>
-                Dashboard
+                {{__('breadcrumbs.dashboard')}}
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/orders" class="nav-link">
+              <router-link to="/page" class="nav-link">
                 <span data-feather="file"></span>
-                Orders
+                {{__('breadcrumbs.page')}}
               </router-link>
             </li>
           </ul>

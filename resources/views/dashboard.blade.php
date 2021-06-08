@@ -10,6 +10,7 @@
         <div id="app">
             <dashboard />
         </div>
+        <script src="{{ '/js/i18n.' . app()->getLocale() . '.js?id=' . Cache::rememberForever('i18n.version', function(){return time();})  }}"></script>
         <script>
             window.config = <?php echo json_encode([
                 'isAuth' => auth()->check(),

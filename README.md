@@ -19,7 +19,6 @@
 
 ## TODO
 
--   Inject locale into frontend
 -   Add DTOs support
 -   Add resources crud support
 -   Add client-server time sync using ISO format and frontend library (luxon?)

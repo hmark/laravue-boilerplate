@@ -4,8 +4,8 @@ const routes = [{
     path: "/",
     component: () => import("@/components/Dashboard.vue"),
 },{
-    path: "/orders",
-    component: () => import("@/components/Orders.vue"),
+    path: "/page",
+    component: () => import("@/components/Page.vue"),
 },{
     path: "/:catchAll(.*)",
     redirect: "/",
