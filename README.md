@@ -6,6 +6,7 @@
 -   Vue 3
 -   Bootstrap 5
 -   Css.gg icons
+-   Vee-Validate 4 (using Yup schemas)
 -   Laravel BenSampo Enums
 
 ## Features
@@ -28,10 +29,12 @@
 
 ## TODO
 
--   Add frontend forms validation library (vee-validate?)
 -   Add response errors display to frontend by extending frontend validation library functionality
 -   Add Laravel Sanctum for communicaton between frontend and backend
 -   Replace ThrottlesLogins class with Laravel 8 Improved Rate Limitting and remove Laravel/ui dependency
+-   Add loader to submit buttons when waiting for server response
+-   Add Vee-validate error messages i18n support
+-   Add Vee-validate form checkbox boolean rule
 -   Use vuex for storing auth user instead of reloading page after register/login
 -   Add admin role
 -   Add admin interface support

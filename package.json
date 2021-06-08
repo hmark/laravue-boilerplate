@@ -25,7 +25,9 @@
     },
     "dependencies": {
         "css.gg": "^2.0.0",
+        "vee-validate": "^4.4.4",
         "vue": "^3.0.11",
-        "vue-router": "^4.0.8"
+        "vue-router": "^4.0.8",
+        "yup": "^0.32.9"
     }
 }

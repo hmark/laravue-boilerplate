@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import ModalRegister from "@/components/ModalRegister";
-import ModalLogin from "@/components/ModalLogin";
+import ModalRegister from "@/modals/ModalRegister";
+import ModalLogin from "@/modals/ModalLogin";
 import Api from "@/api.js";
 
 export default {
