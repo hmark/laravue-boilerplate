@@ -10,8 +10,11 @@
 
 ## Features
 
+-   Controller->Service->Model Laravel code architecture
+-   Client-Server API scaffolding
 -   Auth (register, login, logout)
 -   I18n support for Vue with backend caching
+-   Error handling support
 
 ## Setup
 
