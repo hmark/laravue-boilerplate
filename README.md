@@ -19,12 +19,12 @@
 
 ## TODO
 
--   Add response errors display to frontend
 -   Inject locale into frontend
 -   Add DTOs support
 -   Add resources crud support
 -   Add client-server time sync using ISO format and frontend library (luxon?)
 -   Add frontend forms validation library (vee-validate?)
+-   Add response errors display to frontend by extending frontend validation library functionality
 -   Add admin interface support
 -   Add Laravel Sanctum for communicaton between frontend and backend
 -   Restrict access for admin assets
