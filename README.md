@@ -28,15 +28,17 @@
 
 ## TODO
 
--   Add resources crud support
--   Add client-server time sync using ISO format and frontend library (luxon?)
 -   Add frontend forms validation library (vee-validate?)
 -   Add response errors display to frontend by extending frontend validation library functionality
--   Add admin interface support
 -   Add Laravel Sanctum for communicaton between frontend and backend
+-   Replace ThrottlesLogins class with Laravel 8 Improved Rate Limitting and remove Laravel/ui dependency
+-   Use vuex for storing auth user instead of reloading page after register/login
+-   Add admin role
+-   Add admin interface support
+-   Add resources crud support
+-   Add client-server time sync using ISO format and frontend library (luxon?)
+-   Add pagination support
 -   Restrict access for admin assets
 -   Restrict access for development assets in production environment
--   Replace BenSampo Enums with native PHP 8.1 enums
--   Replace ThrottlesLogins class with Laravel 8 Improved Rate Limitting and remove Laravel/ui dependency
 -   Add auth tests
--   Use vuex for storing auth user instead of reloading page after register/login
+-   Replace BenSampo Enums with native PHP 8.1 enums
