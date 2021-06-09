@@ -13,7 +13,7 @@
 ## Features
 
 -   Controller->Service->Model Laravel code architecture
--   Client-Server API scaffolding
+-   Stateful API using sessions
 -   Auth (register, login, logout)
 -   I18n support for Vue with backend caching
 -   Error handling support
@@ -24,17 +24,18 @@
 -   Clone repository
 -   Create configuration file `cp .env.example .env`
 -   Generate app key `php artisan key:generate`
+-   Execute migrations `php artisan migrate`
 -   Install modules `composer update`
 -   Install node modules `npm install`
 -   Build app using `npm run dev` or `npm run prod`
 
 ## TODO
 
--   Add Laravel Sanctum for communicaton between frontend and backend
 -   Replace ThrottlesLogins class with Laravel 8 Improved Rate Limitting and remove Laravel/ui dependency
 -   Add Vee-validate error messages i18n support
 -   Add Vee-validate form checkbox boolean rule
 -   Use Vuex for storing auth user instead of reloading page after register/login
+-   Check Laravel Sanctum
 -   Add admin role
 -   Add admin interface support
 -   Add resources crud support
