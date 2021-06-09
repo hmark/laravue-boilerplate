@@ -1,6 +1,11 @@
 import axios from 'axios'
 
 export default {
+    async sanctum() {
+        const response = await axios.get('/sanctum/csrf-cookie').catch(this.errorHandler);
+        return response.data;
+    },
+
     async login(data) {
         const response = await axios.post('/api/login', data).catch(this.errorHandler);
         return response.data;
