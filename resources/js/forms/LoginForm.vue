@@ -1,5 +1,5 @@
 <template>
-  <Form :validation-schema="schema" @submit="submit" class="row g-3">
+  <Form ref="form" :validation-schema="schema" @submit="submit" class="row g-3">
     <div class="col-12">
       <label for="email" class="form-label">{{__('forms.email')}}</label>
       <div class="input-group">
@@ -23,6 +23,7 @@
     </div>
     <div class="col-12">
       <button type="submit" class="btn btn-primary mr-auto">{{__('actions.login')}}</button>
+      <span v-if="serverError" role="alert" class="invalid-feedback d-block">{{serverError}}</span>
     </div>
   </Form>
 </template>
@@ -44,19 +45,37 @@ export default {
       //   remember: yup.bool().required(),
     });
 
+    const serverError = "";
+    const submitting = false;
+
     return {
       schema,
+      serverError,
+      submitting,
     };
   },
   methods: {
+    reset() {
+      this.$refs.form.resetForm();
+    },
     submit(values) {
+      this.submitting = true;
+      this.serverError = "";
+
       Api.login({
         email: values.email,
         password: values.password,
         remember: !!values.remember,
-      }).then((response) => {
-        window.location.reload();
-      });
+      })
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          this.serverError = error.message;
+        })
+        .finally(() => {
+          this.submitting = false;
+        });
     },
   },
 };

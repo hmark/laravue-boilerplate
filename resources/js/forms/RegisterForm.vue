@@ -1,5 +1,5 @@
 <template>
-  <Form :validation-schema="schema" @submit="submit" class="row g-3">
+  <Form ref="form" :validation-schema="schema" @submit="submit" class="row g-3">
     <div class="col-12">
       <label for="email" class="form-label">{{__('forms.name')}}</label>
       <div class="input-group">
@@ -30,6 +30,7 @@
     </div>
     <div class="col-12">
       <button type="submit" class="btn btn-primary mr-auto">{{__('actions.register')}}</button>
+      <span v-if="serverError" role="alert" class="invalid-feedback d-block">{{serverError}}</span>
     </div>
   </Form>
 </template>
@@ -46,32 +47,51 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      name: yup.string().required().min(6),
-      email: yup.string().required().email(),
-      password: yup.string().required().min(8),
-      password_confirmation: yup.string().oneOf(
-        [yup.ref("password"), null],
-        this.__("validation.confirmed", {
-          attribute: this.__("forms.password"),
-        })
-      ),
+      name: yup.string().required().min(6).max(20).label(this.__("forms.name")),
+      email: yup.string().required().email().label(this.__("forms.email")),
+      password: yup.string().required().min(8).label(this.__("forms.password")),
+      password_confirmation: yup
+        .string()
+        .required()
+        .oneOf(
+          [yup.ref("password")],
+          this.__("validation.confirmed", { attribute: "" })
+        )
+        .label(this.__("forms.password_confirmation")),
     });
+
+    const serverError = "";
+    const submitting = false;
 
     return {
       schema,
+      serverError,
+      submitting,
     };
   },
   methods: {
+    reset() {
+      this.$refs.form.resetForm();
+    },
     submit(values) {
-      console.log(values);
+      this.submitting = true;
+      this.serverError = "";
+
       Api.register({
         name: values.name,
         email: values.email,
         password: values.password,
         password_confirmation: values.password_confirmation,
-      }).then((response) => {
-        window.location.reload();
-      });
+      })
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          this.serverError = error.message;
+        })
+        .finally(() => {
+          this.submitting = false;
+        });
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div id="modal-register" class="modal" tabindex="-1">
+  <div ref="modal" id="modal-register" class="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -7,7 +7,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <RegisterForm />
+          <RegisterForm ref="form" />
         </div>
       </div>
     </div>
@@ -19,6 +19,11 @@ import RegisterForm from "@/forms/RegisterForm";
 export default {
   components: {
     RegisterForm,
+  },
+  mounted() {
+    this.$refs.modal.addEventListener("shown.bs.modal", () => {
+      this.$refs.form.reset();
+    });
   },
 };
 </script>
