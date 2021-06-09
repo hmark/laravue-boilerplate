@@ -5,14 +5,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="navbar-nav px-3 flex-row ">
-      <li v-if="!config.isAuth" class="nav-item">
+      <li v-if="!isLoggedIn" class="nav-item">
         <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-login">{{__('breadcrumbs.login')}}</a>
       </li>
-      <li v-if="!config.isAuth" class="nav-item">
+      <li v-if="!isLoggedIn" class="nav-item">
         <a class="nav-link mx-3" href="#" data-bs-toggle="modal" data-bs-target="#modal-register">{{__('breadcrumbs.register')}}</a>
       </li>
-      <li v-if="config.isAuth" class="nav-item text-nowrap">
-        <a @click.prevent="logout()" class="nav-link" href="#">{{__('actions.logout')}}</a>
+      <li v-if="isLoggedIn" class="nav-item text-nowrap">
+        <a @click.prevent="logout()" class="nav-link" href="#">{{__('actions.logout')}} {{user.name}}</a>
       </li>
     </ul>
   </header>
@@ -54,14 +54,21 @@ export default {
   components: { ModalLogin, ModalRegister },
 
   computed: {
-    config: function () {
-      return window.config;
+    isLoggedIn: function () {
+      return this.$store.getters.isLoggedIn;
+    },
+    user: function () {
+      return this.$store.getters.user;
     },
   },
   methods: {
     logout() {
       Api.logout().then((response) => {
-        window.location.href = "/";
+        this.$store.dispatch({
+          type: "unauthenticate",
+        });
+
+        this.$router.push("/");
       });
     },
   },

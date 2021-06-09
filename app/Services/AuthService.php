@@ -41,9 +41,13 @@ class AuthService
         if (Auth::attempt([
             'email' => $dto->email,
             'password' => $dto->password,
-        ], $dto->remember)) {
+        ])) {
             $request->session()->regenerate();
             $this->loginThrottleService->clearLoginAttempts($request);
+
+            return [
+                'name' => auth()->user()->name
+            ];
         } else {
             $this->loginThrottleService->incrementLoginAttempts($request);
 

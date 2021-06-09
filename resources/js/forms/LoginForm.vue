@@ -15,13 +15,6 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="form-check">
-        <Field name="remember" type="checkbox" value="true" class="form-check-input"></Field>
-        <label for="remember" class="form-check-label">{{__('forms.remember')}}</label>
-        <ErrorMessage name="remember" />
-      </div>
-    </div>
-    <div class="col-12">
       <button class="btn btn-primary" :disabled="submitting">
         <span v-if="submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         {{__('actions.login')}}
@@ -41,11 +34,11 @@ export default {
     Field,
     ErrorMessage,
   },
+  emits: ["submitted"],
   data() {
     const schema = yup.object().shape({
       email: yup.string().required().email(),
       password: yup.string().required(),
-      //   remember: yup.bool().required(),
     });
 
     const serverError = "";
@@ -68,10 +61,14 @@ export default {
       Api.login({
         email: values.email,
         password: values.password,
-        remember: !!values.remember,
       })
         .then((response) => {
-          window.location.reload();
+          this.$store.dispatch({
+            type: "authenticate",
+            name: response.name,
+          });
+
+          this.$emit("submitted");
         })
         .catch((error) => {
           this.serverError = error.message;

@@ -31,10 +31,9 @@
 
 ## TODO
 
+-   Check Laravel Sanctum
 -   Add Vee-validate error messages i18n support
 -   Add Vee-validate form checkbox boolean rule
--   Use Vuex for storing auth user instead of reloading page after register/login
--   Check Laravel Sanctum
 -   Add admin role
 -   Add admin interface support
 -   Add resources crud support

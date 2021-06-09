@@ -48,6 +48,7 @@ export default {
     Field,
     ErrorMessage,
   },
+  emits: ["submitted"],
   data() {
     const schema = yup.object().shape({
       name: yup.string().required().min(6).max(20).label(this.__("forms.name")),
@@ -87,7 +88,12 @@ export default {
         password_confirmation: values.password_confirmation,
       })
         .then((response) => {
-          window.location.reload();
+          this.$store.dispatch({
+            type: "authenticate",
+            name: values.name,
+          });
+
+          this.$emit("submitted");
         })
         .catch((error) => {
           this.serverError = error.message;

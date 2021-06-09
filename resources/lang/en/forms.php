@@ -5,5 +5,4 @@ return [
     'name' => 'Name',
     'password' => 'Password',
     'password_confirmation' => 'Confirm Password',
-    'remember' => 'Remember'
 ];

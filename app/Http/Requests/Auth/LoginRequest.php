@@ -17,7 +17,6 @@ class LoginRequest extends Request
         return [
             'email' => 'required|email',
             'password' => 'required|string',
-            'remember' => 'required|boolean',
         ];
     }
 
@@ -28,7 +27,6 @@ class LoginRequest extends Request
         return new LoginDto(
             $data['email'],
             $data['password'],
-            $data['remember'],
         );
     }
 }
