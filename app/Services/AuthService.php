@@ -31,8 +31,7 @@ class AuthService
     {
         $request = request();
 
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+        if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             try {
                 return $this->sendLockoutResponse($request);
