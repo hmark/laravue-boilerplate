@@ -8,6 +8,7 @@
 -   Css.gg icons
 -   Vee-Validate 4 (using Yup schemas)
 -   Axios
+-   Vuex
 -   Laravel BenSampo Enums
 
 ## Features
