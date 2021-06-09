@@ -32,7 +32,6 @@
 
 -   Add Laravel Sanctum for communicaton between frontend and backend
 -   Replace ThrottlesLogins class with Laravel 8 Improved Rate Limitting and remove Laravel/ui dependency
--   Add loader to submit buttons when waiting for server response
 -   Add Vee-validate error messages i18n support
 -   Add Vee-validate form checkbox boolean rule
 -   Use Vuex for storing auth user instead of reloading page after register/login

@@ -22,7 +22,10 @@
       </div>
     </div>
     <div class="col-12">
-      <button type="submit" class="btn btn-primary mr-auto">{{__('actions.login')}}</button>
+      <button class="btn btn-primary" :disabled="submitting">
+        <span v-if="submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{__('actions.login')}}
+      </button>
       <span v-if="serverError" role="alert" class="invalid-feedback d-block">{{serverError}}</span>
     </div>
   </Form>
