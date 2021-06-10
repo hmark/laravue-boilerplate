@@ -32,6 +32,7 @@
 
 ## TODO
 
+-   Change RateLimiter service class to RateLimiter facade usage
 -   Add /me call before app starts
 -   Add Laravel Sanctum
 -   Add Vee-validate error messages i18n support
