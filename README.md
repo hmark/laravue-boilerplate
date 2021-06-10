@@ -32,7 +32,6 @@
 
 ## TODO
 
--   Add /me call before app starts
 -   Add Laravel Sanctum
 -   Add Vee-validate error messages i18n support
 -   Add Vee-validate form checkbox boolean rule
