@@ -28,7 +28,7 @@ export default {
 
     errorHandler(error) {
         var errorMessage =
-            error.response.status == 400 && error.response.data.message ?
+            [400, 403].includes(error.response.status) && error.response.data.message ?
             error.response.data.message :
             error.response.status + " " + error.response.statusText;
 

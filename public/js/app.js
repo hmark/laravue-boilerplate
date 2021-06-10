@@ -19920,20 +19920,22 @@ __webpack_require__.r(__webpack_exports__);
 
       this.submitting = true;
       this.serverError = "";
-      _api_js__WEBPACK_IMPORTED_MODULE_0__.default.login({
-        email: values.email,
-        password: values.password
-      }).then(function (response) {
-        _this.$store.dispatch({
-          type: "authenticate",
-          name: response.name
-        });
+      _api_js__WEBPACK_IMPORTED_MODULE_0__.default.sanctum().then(function (response) {
+        _api_js__WEBPACK_IMPORTED_MODULE_0__.default.login({
+          email: values.email,
+          password: values.password
+        }).then(function (response) {
+          _this.$store.dispatch({
+            type: "authenticate",
+            name: response.name
+          });
 
-        _this.$emit("submitted");
-      })["catch"](function (error) {
-        _this.serverError = error.message;
-      })["finally"](function () {
-        _this.submitting = false;
+          _this.$emit("submitted");
+        })["catch"](function (error) {
+          _this.serverError = error.message;
+        })["finally"](function () {
+          _this.submitting = false;
+        });
       });
     }
   }
@@ -20801,7 +20803,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   errorHandler: function errorHandler(error) {
-    var errorMessage = error.response.status == 400 && error.response.data.message ? error.response.data.message : error.response.status + " " + error.response.statusText;
+    var errorMessage = [400, 403].includes(error.response.status) && error.response.data.message ? error.response.data.message : error.response.status + " " + error.response.statusText;
     throw new Error(errorMessage);
   }
 });

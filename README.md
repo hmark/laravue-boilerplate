@@ -6,15 +6,16 @@
 -   Vue 3
 -   Bootstrap 5
 -   Css.gg icons
--   Vee-Validate 4 (using Yup schemas)
+-   Laravel Sanctum
 -   Axios
+-   Vee-Validate 4 (using Yup schemas)
 -   Vuex
 -   Laravel BenSampo Enums
 
 ## Features
 
 -   Controller->Service->Model Laravel code architecture
--   Stateful API using sessions
+-   Stateful API using Laravel Sanctum
 -   Auth (register, login, logout)
 -   I18n support for Vue with backend caching
 -   Error handling support
@@ -32,7 +33,6 @@
 
 ## TODO
 
--   Add Laravel Sanctum
 -   Add Vee-validate error messages i18n support
 -   Add Vee-validate form checkbox boolean rule
 -   Add admin role

@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use App\Enums\Error;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -55,15 +54,6 @@ class Handler extends ExceptionHandler
             return response()->json($response, 400);
         });
 
-        $this->renderable(function (AuthorizationException $e) {
-            $response = [
-                'error' => Error::Unauthorized()->key,
-                'message' => config('errors.unauthorized'),
-            ];
-
-            return response()->json($response, 401);
-        });
-
         $this->renderable(function (ModelNotFoundException $e) {
             $response = [
                 'error' => Error::ModelNotFound()->key,
@@ -83,10 +73,19 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (HttpException $e) {
-            $response = [
-                'error' => Error::HTTPError()->key,
-                'message' => config('errors.http_error'),
-            ];
+            if ($e->getStatusCode() == 403)
+            {
+                $response = [
+                    'error' => Error::Unauthorized()->key,
+                    'message' => config('errors.unauthorized'),
+                ];
+            }
+            else {
+                $response = [
+                    'error' => Error::HTTPError()->key,
+                    'message' => config('errors.http_error'),
+                ];
+            }
 
             return response()->json($response, $e->getStatusCode());
         });

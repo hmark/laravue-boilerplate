@@ -58,24 +58,26 @@ export default {
       this.submitting = true;
       this.serverError = "";
 
-      Api.login({
-        email: values.email,
-        password: values.password,
-      })
-        .then((response) => {
-          this.$store.dispatch({
-            type: "authenticate",
-            name: response.name,
-          });
+      Api.sanctum().then((response) => {
+        Api.login({
+          email: values.email,
+          password: values.password,
+        })
+          .then((response) => {
+            this.$store.dispatch({
+              type: "authenticate",
+              name: response.name,
+            });
 
-          this.$emit("submitted");
-        })
-        .catch((error) => {
-          this.serverError = error.message;
-        })
-        .finally(() => {
-          this.submitting = false;
-        });
+            this.$emit("submitted");
+          })
+          .catch((error) => {
+            this.serverError = error.message;
+          })
+          .finally(() => {
+            this.submitting = false;
+          });
+      });
     },
   },
 };
