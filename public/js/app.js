@@ -20704,7 +20704,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
-  login: function login(data) {
+  me: function me() {
     var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -20714,7 +20714,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/login', data)["catch"](_this2.errorHandler);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/me')["catch"](_this2.errorHandler);
 
             case 2:
               response = _context2.sent;
@@ -20728,7 +20728,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee2);
     }))();
   },
-  register: function register(data) {
+  login: function login(data) {
     var _this3 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -20738,7 +20738,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/register', data)["catch"](_this3.errorHandler);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/login', data)["catch"](_this3.errorHandler);
 
             case 2:
               response = _context3.sent;
@@ -20752,7 +20752,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee3);
     }))();
   },
-  logout: function logout(data) {
+  register: function register(data) {
     var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
@@ -20762,7 +20762,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/logout', data)["catch"](_this4.errorHandler);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/register', data)["catch"](_this4.errorHandler);
 
             case 2:
               response = _context4.sent;
@@ -20774,6 +20774,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee4);
+    }))();
+  },
+  logout: function logout(data) {
+    var _this5 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/logout', data)["catch"](_this5.errorHandler);
+
+            case 2:
+              response = _context5.sent;
+              return _context5.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
     }))();
   },
   errorHandler: function errorHandler(error) {
@@ -20798,6 +20822,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 /* harmony import */ var _i18n_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./i18n.js */ "./resources/js/i18n.js");
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./api.js */ "./resources/js/api.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -20806,7 +20831,19 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_pages_Layout__WEBPACK_IMPORTED_MODULE_2__.default).use(_store__WEBPACK_IMPORTED_MODULE_3__.default).use(_router__WEBPACK_IMPORTED_MODULE_4__.default).use(_i18n_js__WEBPACK_IMPORTED_MODULE_5__.default).mount('#app');
+
+_api_js__WEBPACK_IMPORTED_MODULE_6__.default.me().then(function (response) {
+  if (response.authenticated) {
+    _store__WEBPACK_IMPORTED_MODULE_3__.default.dispatch({
+      type: "authenticate",
+      name: response.name
+    });
+  }
+})["catch"](function (error) {
+  console.log(error);
+})["finally"](function () {
+  (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_pages_Layout__WEBPACK_IMPORTED_MODULE_2__.default).use(_store__WEBPACK_IMPORTED_MODULE_3__.default).use(_router__WEBPACK_IMPORTED_MODULE_4__.default).use(_i18n_js__WEBPACK_IMPORTED_MODULE_5__.default).mount('#app');
+});
 
 /***/ }),
 
@@ -20933,9 +20970,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_0__.createStore)({
   state: {
-    isLoggedIn: !!localStorage.getItem('user.name'),
+    isLoggedIn: null,
     user: {
-      name: localStorage.getItem('user.name')
+      name: null
     }
   },
   getters: {
@@ -20949,12 +20986,10 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     authenticate: function authenticate(state, _ref) {
       var name = _ref.name;
-      localStorage.setItem('user.name', name);
       state.isLoggedIn = true;
       state.user.name = name;
     },
     unauthenticate: function unauthenticate(state) {
-      localStorage.removeItem('user.name');
       state.isLoggedIn = false;
       state.user.name = null;
     }

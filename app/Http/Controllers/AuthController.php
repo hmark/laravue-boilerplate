@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\LogoutRequest;
+use App\Http\Requests\Auth\MeRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\AuthService;
 
@@ -28,5 +29,12 @@ class AuthController extends Controller
         $authService->logout();
 
         return $this->success();
+    }
+
+    public function me(MeRequest $request, AuthService $authService)
+    {
+        $data = $authService->me();
+
+        return $this->success($data);
     }
 }

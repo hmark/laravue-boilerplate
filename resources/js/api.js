@@ -6,6 +6,11 @@ export default {
         return response.data;
     },
 
+    async me() {
+        const response = await axios.get('/api/me').catch(this.errorHandler);
+        return response.data;
+    },
+
     async login(data) {
         const response = await axios.post('/api/login', data).catch(this.errorHandler);
         return response.data;

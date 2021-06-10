@@ -60,4 +60,12 @@ class AuthService
         Auth::logout();
         request()->session()->invalidate();
     }
+
+    public function me()
+    {
+        return [
+            'authenticated' => auth()->check(),
+            'name' => auth()->check() ? auth()->user()->name : null,
+        ];
+    }
 }

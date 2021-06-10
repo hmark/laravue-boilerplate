@@ -2,9 +2,9 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
-        isLoggedIn: !!localStorage.getItem('user.name'),
+        isLoggedIn: null,
         user: {
-            name: localStorage.getItem('user.name')
+            name: null
         }
     },
     getters: {
@@ -17,13 +17,11 @@ export default createStore({
     },
     mutations: {
         authenticate(state, { name }) {
-            localStorage.setItem('user.name', name);
             state.isLoggedIn = true;
             state.user.name = name;
         },
 
         unauthenticate(state) {
-            localStorage.removeItem('user.name');
             state.isLoggedIn = false;
             state.user.name = null;
         },
