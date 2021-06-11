@@ -20,7 +20,7 @@ class LoginRequest extends Request
         ];
     }
 
-    public function getDto(): LoginDto
+    public function dto(): LoginDto
     {
         $data = $this->validated();
 

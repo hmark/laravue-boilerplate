@@ -20,7 +20,7 @@ class GetLanguageRequest extends Request
         ];
     }
 
-    public function getDto(): GetLanguageDto
+    public function dto(): GetLanguageDto
     {
         $data = $this->validated();
 

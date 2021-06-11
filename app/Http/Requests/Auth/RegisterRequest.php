@@ -21,7 +21,7 @@ class RegisterRequest extends Request
         ];
     }
 
-    public function getDto(): RegisterDto
+    public function dto(): RegisterDto
     {
         $data = $this->validated();
 

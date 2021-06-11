@@ -12,14 +12,14 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request, AuthService $authService)
     {
-        $authService->register($request->getDto());
+        $authService->register($request->dto());
 
         return $this->success();
     }
 
     public function login(LoginRequest $request, AuthService $authService)
     {
-        $data = $authService->login($request->getDto());
+        $data = $authService->login($request->dto());
 
         return $this->success($data);
     }
