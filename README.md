@@ -25,9 +25,9 @@
 
 -   Clone repository
 -   Create configuration file `cp .env.example .env`
+-   Install modules `composer update`
 -   Generate app key `php artisan key:generate`
 -   Execute migrations `php artisan migrate`
--   Install modules `composer update`
 -   Install node modules `npm install`
 -   Build app using `npm run dev` or `npm run prod`
 
