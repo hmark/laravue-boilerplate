@@ -2,9 +2,7 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-final class Error extends Enum
+enum Language: string
 {
     public const HTTPError = 'http_error';
     public const InvalidInput = 'invalid_input';

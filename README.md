@@ -44,4 +44,3 @@
 -   Restrict access for development assets in production environment
 -   Add auth tests
 -   Refactor Modal and Forms boilerplate code
--   Replace BenSampo Enums with native PHP 8.1 enums

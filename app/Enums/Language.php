@@ -2,9 +2,7 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-class Language extends Enum
+enum Language: string
 {
     public const en = 'en';
 }
