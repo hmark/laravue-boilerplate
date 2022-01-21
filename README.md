@@ -10,7 +10,6 @@
 -   Axios
 -   Vee-Validate 4 (using Yup schemas)
 -   Vuex
--   Laravel BenSampo Enums
 
 ## Features
 
