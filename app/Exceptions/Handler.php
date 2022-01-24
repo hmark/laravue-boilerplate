@@ -39,64 +39,31 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (AppException $e) {
-            if ($e->type->is(Error::InvalidInput())) {
-                $response = [
-                    'error' => $e->type->key,
-                    'message' => $e->data[array_keys($e->data)[0]][0],
-                ];
+            if ($e->type === Error::InvalidInput) {
+                return response()->json(Error::response(Error::InvalidInput, $e->data[array_keys($e->data)[0]][0]), 400);
             } else {
-                $response = [
-                    'error' => $e->type->key,
-                    'message' => config('errors.' . $e->type->value),
-                ];
+                return response()->json(Error::response(Error::InvalidInput, config('errors.' . $e->type->value)), 400);
             }
-
-            return response()->json($response, 400);
         });
 
         $this->renderable(function (ModelNotFoundException $e) {
-            $response = [
-                'error' => Error::ModelNotFound()->key,
-                'message' => config('errors.model_not_found'),
-            ];
-
-            return response()->json($response, 400);
+            return response()->json(Error::response(Error::ModelNotFound), 400);
         });
 
         $this->renderable(function (NotFoundHttpException $e) {
-            $response = [
-                'error' => Error::NotFound()->key,
-                'message' => config('errors.not_found'),
-            ];
-
-            return response()->json($response, $e->getStatusCode());
+            return response()->json(Error::response(Error::NotFound), $e->getStatusCode());
         });
 
         $this->renderable(function (HttpException $e) {
-            if ($e->getStatusCode() == 403)
-            {
-                $response = [
-                    'error' => Error::Unauthorized()->key,
-                    'message' => config('errors.unauthorized'),
-                ];
+            if ($e->getStatusCode() == 403) {
+                return response()->json(Error::response(Error::Unauthorized), $e->getStatusCode());
+            } else {
+                return response()->json(Error::response(Error::HTTPError), $e->getStatusCode());
             }
-            else {
-                $response = [
-                    'error' => Error::HTTPError()->key,
-                    'message' => config('errors.http_error'),
-                ];
-            }
-
-            return response()->json($response, $e->getStatusCode());
         });
 
         $this->reportable(function (Throwable $e) {
-            $response = [
-                'error' => Error::ServerError()->key,
-                'message' => config('errors.server_error'),
-            ];
-
-            return response()->json($response, 500);
+            return response()->json(Error::response(Error::ServerError), 500);
         });
     }
 }

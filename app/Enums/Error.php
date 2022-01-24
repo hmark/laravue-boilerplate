@@ -2,14 +2,22 @@
 
 namespace App\Enums;
 
-enum Language: string
+enum Error: string
 {
-    public const HTTPError = 'http_error';
-    public const InvalidInput = 'invalid_input';
-    public const InvalidLogin = 'invalid_login';
-    public const ModelNotFound = 'model_not_found';
-    public const NotFound = 'not_found';
-    public const ServerError = 'server_error';
-    public const TooManyLogins = 'too_many_logins';
-    public const Unauthorized = 'unauthorized';
+    case HTTPError = 'http_error';
+    case InvalidInput = 'invalid_input';
+    case InvalidLogin = 'invalid_login';
+    case ModelNotFound = 'model_not_found';
+    case NotFound = 'not_found';
+    case ServerError = 'server_error';
+    case TooManyLogins = 'too_many_logins';
+    case Unauthorized = 'unauthorized';
+
+    public static function response(self $value, string $message = null): array
+    {
+        return [
+            'error' => $value,
+            'message' => is_null($message) ? config('errors.' . $value->value) : $message,
+        ];
+    }
 }
