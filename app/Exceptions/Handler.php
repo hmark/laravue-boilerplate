@@ -57,6 +57,9 @@ class Handler extends ExceptionHandler
         $this->renderable(function (HttpException $e) {
             if ($e->getStatusCode() == 403) {
                 return response()->json(Error::response(Error::Unauthorized), $e->getStatusCode());
+            } else if ($e->getStatusCode() == 503) {
+                return response()->view('errors.maintenance', [], 503);
+                //return response()->json(Error::response(Error::Maintenance), $e->getStatusCode());
             } else {
                 return response()->json(Error::response(Error::HTTPError), $e->getStatusCode());
             }

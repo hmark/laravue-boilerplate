@@ -4,6 +4,7 @@ return [
     'http_error' => 'HTTP error.',
     'invalid_input' => 'Invalid input.',
     'invalid_login' => 'Invalid login.',
+    'maintenance' => 'Maintenance.',
     'model_not_found' => 'Model not found.',
     'not_found' => 'Not found.',
     'server_error' => 'Server error.',
