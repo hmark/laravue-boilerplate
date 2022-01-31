@@ -34,7 +34,7 @@ class AuthService
             try {
                 return $this->loginThrottleService->sendLockoutResponse($request);
             } catch (ValidationException $exception) {
-                throw new AppException(Error::TooManyLogins(), $exception->errors());
+                throw new AppException(Error::TooManyLogins, $exception->errors());
             }
         }
 
@@ -51,7 +51,7 @@ class AuthService
         } else {
             $this->loginThrottleService->incrementLoginAttempts($request);
 
-            throw new AppException(Error::InvalidLogin());
+            throw new AppException(Error::InvalidLogin);
         }
     }
 

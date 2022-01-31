@@ -23,6 +23,6 @@ class Request extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
-        throw new AppException(Error::InvalidInput(), $errors);
+        throw new AppException(Error::InvalidInput, $errors);
     }
 }
