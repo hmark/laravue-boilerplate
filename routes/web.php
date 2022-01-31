@@ -8,4 +8,4 @@ Route::get('/i18n/reset', [I18nController::class, 'resetCache']);
 
 Route::get('/{vue_capture?}', function () {
     return view('dashboard');
-})->where('vue_capture', '[\/\w-]*');
+})->where('vue_capture', '.*');
