@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
--   Laravel 8
+-   Laravel 9
 -   Vue 3
 -   Bootstrap 5
 -   Css.gg icons
