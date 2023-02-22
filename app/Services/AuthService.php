@@ -2,52 +2,47 @@
 
 namespace App\Services;
 
-use App\Dtos\Auth\LoginDto;
-use App\Dtos\Auth\RegisterDto;
 use App\Enums\Error;
 use App\Exceptions\AppException;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
     protected LoginThrottleService $loginThrottleService;
-    protected UserService $userService;
 
-    public function __construct(LoginThrottleService $loginThrottleService, UserService $userService)
+    public function __construct(LoginThrottleService $loginThrottleService)
     {
         $this->loginThrottleService = $loginThrottleService;
-        $this->userService = $userService;
     }
 
-    public function register(RegisterDto $dto)
+    public function login(User $user): void
     {
-        $user = $this->userService->create($dto);
         Auth::login($user);
     }
 
-    public function login(LoginDto $dto)
+    public function loginWithCredentials(string $email, string $password): void
     {
         $request = request();
 
         if ($this->loginThrottleService->hasTooManyLoginAttempts($request)) {
             try {
-                return $this->loginThrottleService->sendLockoutResponse($request);
+                $this->loginThrottleService->sendLockoutResponse($request);
             } catch (ValidationException $exception) {
                 throw new AppException(Error::TooManyLogins, $exception->errors());
             }
         }
 
         if (Auth::attempt([
-            'email' => $dto->email,
-            'password' => $dto->password,
+            'email' => $email,
+            'password' => $password,
         ])) {
             $request->session()->regenerate();
             $this->loginThrottleService->clearLoginAttempts($request);
 
-            return [
-                'name' => auth()->user()->name
-            ];
+            // activity()->by(auth()->user())->log(ActivityType::Login);
         } else {
             $this->loginThrottleService->incrementLoginAttempts($request);
 
@@ -57,15 +52,18 @@ class AuthService
 
     public function logout()
     {
+        $user = auth()->user();
         Auth::logout();
         request()->session()->invalidate();
+        // activity()->by($user)->log(ActivityType::Logout);
     }
 
-    public function me()
+    public function validateUserPassword(User $user, string $password)
     {
-        return [
-            'authenticated' => auth()->check(),
-            'name' => auth()->check() ? auth()->user()->name : null,
-        ];
+        if (Hash::check($password, $user->password)) {
+            return true;
+        }
+
+        // throw new AppException(Error::InvalidPassword);
     }
 }

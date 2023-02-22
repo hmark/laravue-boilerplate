@@ -9,16 +9,9 @@
 -   Bootstrap 5.2.3
 -   Bootstrap Icons 1.10.3
 -   Laravel Sanctum
--   Vee-Validate 4 (using Yup schemas)
--   Vuex
-
-## Features
-
--   Controller->Service->Model Laravel code architecture
--   Stateful API using Laravel Sanctum
--   Auth (register, login, logout)
--   Error handling support
--   Requests DTO scaffolding
+-   Vee-Validate 4.7.4 (using Yup schemas)
+-   Pinia
+-   Laravel Actions
 
 ## Setup
 

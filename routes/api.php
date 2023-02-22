@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Actions\User\GetMe;
+use App\Actions\User\Logout;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::get('/me', [AuthController::class, 'me']);
+// guest
+Route::post('login', Login::class);
+Route::post('register', Register::class);
+Route::get('me', GetMe::class);
+
+// auth
+Route::post('logout', Logout::class);
