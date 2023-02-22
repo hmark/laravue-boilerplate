@@ -1,12 +1,17 @@
-require('./bootstrap');
-
-import "bootstrap";
 import { createApp } from "vue";
-import Layout from './pages/Layout'
-import store from './store'
-import router from './router'
-import i18n from './i18n.js';
-import Api from "./api.js";
+import 'bootstrap'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import '../scss/bootstrap-darkly-theme.css'
+import '../scss/custom.scss';
+import store from '@/store'
+import router from '@/router'
+import Api from "@/api.js"
+import Layout from '@/pages/Layout.vue'
+
+import axios from 'axios';
+window.axios = axios;
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 Api.me()
     .then((response) => {
@@ -24,7 +29,6 @@ Api.me()
         createApp(Layout)
             .use(store)
             .use(router)
-            .use(i18n)
             .mount('#app');
     });
 

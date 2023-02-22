@@ -2,9 +2,9 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
-        isLoggedIn: null,
+        isLoggedIn: false,
         user: {
-            name: null
+            name: "markey"
         }
     },
     getters: {

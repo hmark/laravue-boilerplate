@@ -2,12 +2,13 @@
 
 ## Tech Stack
 
--   Laravel 9
--   Vue 3
--   Bootstrap 5
--   Css.gg icons
+-   Laravel 10
+-   Vue 3.2.47
+-   Vite 4
+-   Axios 1.1.2
+-   Bootstrap 5.2.3
+-   Bootstrap Icons 1.10.3
 -   Laravel Sanctum
--   Axios
 -   Vee-Validate 4 (using Yup schemas)
 -   Vuex
 
@@ -16,7 +17,6 @@
 -   Controller->Service->Model Laravel code architecture
 -   Stateful API using Laravel Sanctum
 -   Auth (register, login, logout)
--   I18n support for Vue with backend caching
 -   Error handling support
 -   Requests DTO scaffolding
 
