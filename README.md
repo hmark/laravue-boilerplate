@@ -21,4 +21,4 @@
 -   Generate app key `php artisan key:generate`
 -   Execute migrations `php artisan migrate`
 -   Install node modules `npm install`
--   Build app using `npm run dev` or `npm run prod`
+-   Build app using `npm run dev` or `npm run build`
