@@ -8,10 +8,10 @@
 -   Axios 1.1.2
 -   Bootstrap 5.2.3
 -   Bootstrap Icons 1.10.3
--   Laravel Sanctum
+-   Laravel Sanctum 3.2
 -   Vee-Validate 4.7.4 (using Yup schemas)
--   Pinia
--   Laravel Actions
+-   Pinia 4.0.2
+-   Laravel Actions 2.5
 
 ## Setup
 
