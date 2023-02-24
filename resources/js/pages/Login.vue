@@ -28,12 +28,6 @@
         </div>
     </div>
 </template>
-<script>
+<script setup>
 import LoginForm from "@/forms/LoginForm.vue";
-
-export default {
-    components: {
-        LoginForm,
-    },
-};
 </script>

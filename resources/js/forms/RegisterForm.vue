@@ -34,72 +34,59 @@
         </div>
     </Form>
 </template>
-<script>
-import Api from "@/api.js";
-import * as yup from "yup";
-import { Form, Field, ErrorMessage } from "vee-validate";
+<script setup>
+import { ref } from 'vue'
+import Api from '@/api.js'
+import * as yup from 'yup'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import { useAuthStore } from '@/stores/AuthStore.js'
+import { useRouter } from 'vue-router'
 
-export default {
-    components: {
-        Form,
-        Field,
-        ErrorMessage,
-    },
-    emits: ["submitted"],
-    data() {
-        const schema = yup.object().shape({
-            name: yup.string().required().min(6).max(20).label('Name'),
-            email: yup.string().required().email().label('Email'),
-            password: yup.string().required().min(8).label('Password'),
-            password_confirmation: yup
-                .string()
-                .required()
-                .oneOf(
-                    [yup.ref("password")],
-                    "Passwords do not match", { attribute: "" }
-                )
-                .label("Repeat Password"),
-        });
+const authStore = useAuthStore()
+const router = useRouter()
 
-        const serverError = "";
-        const submitting = false;
+const emit = defineEmits(['submitted'])
+defineExpose({ reset })
 
-        return {
-            schema,
-            serverError,
-            submitting,
-        };
-    },
-    methods: {
-        reset() {
-            this.$refs.form.resetForm();
-        },
-        submit(values) {
-            this.submitting = true;
-            this.serverError = "";
+const schema = yup.object().shape({
+    name: yup.string().required().min(6).max(20).label('Name'),
+    email: yup.string().required().email().label('Email'),
+    password: yup.string().required().min(8).label('Password'),
+    password_confirmation: yup
+        .string()
+        .required()
+        .oneOf([yup.ref('password')], 'Passwords must match')
+        .label('Confirmed Password'),
+})
+const serverError = ref('')
+const submitting = ref(false)
+const form = ref(null)
 
-            Api.register({
-                name: values.name,
-                email: values.email,
-                password: values.password,
-                password_confirmation: values.password_confirmation,
-            })
-                .then((response) => {
-                    this.$store.dispatch({
-                        type: "authenticate",
-                        name: values.name,
-                    });
+function reset() {
+    form.value.resetForm()
+}
 
-                    this.$emit("submitted");
-                })
-                .catch((error) => {
-                    this.serverError = error.message;
-                })
-                .finally(() => {
-                    this.submitting = false;
-                });
-        },
-    },
-};
+function submit(values) {
+    submitting.value = true
+    serverError.value = ''
+
+    Api.register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.password_confirmation,
+    })
+        .then((response) => {
+            authStore.authenticate(values.name, false)
+            emit("submitted");
+            router.push("/")
+        })
+        .catch((error) => {
+            serverError.value = error.message
+        })
+        .finally(() => {
+            submitting.value = false
+        })
+}
 </script>
 

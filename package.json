@@ -13,10 +13,10 @@
         "@vitejs/plugin-vue": "^4.0.0",
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.10.3",
+        "pinia": "^2.0.32",
         "vee-validate": "^4.7.4",
         "vue": "^3.2.47",
         "vue-router": "^4.0.11",
-        "vuex": "^4.0.2",
         "yup": "^0.32.9"
     }
 }

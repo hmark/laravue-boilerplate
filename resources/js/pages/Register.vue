@@ -28,12 +28,6 @@
         </div>
     </div>
 </template>
-<script>
+<script setup>
 import RegisterForm from "@/forms/RegisterForm.vue";
-
-export default {
-    components: {
-        RegisterForm,
-    },
-};
 </script>
