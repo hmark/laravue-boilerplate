@@ -7,6 +7,7 @@ enum Error: string
     case HTTPError = 'http_error';
     case InvalidInput = 'invalid_input';
     case InvalidLogin = 'invalid_login';
+    case InvalidPassword = 'invalid_password';
     case Maintenance = 'maintenance';
     case ModelNotFound = 'model_not_found';
     case NotFound = 'not_found';

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\User;
+namespace App\Actions;
 
 use App\Http\Resources\MeResource;
 use App\Services\AuthService;

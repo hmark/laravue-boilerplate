@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\ActivityType;
 use App\Enums\Error;
 use App\Exceptions\AppException;
 use App\Models\User;
@@ -42,7 +43,7 @@ class AuthService
             $request->session()->regenerate();
             $this->loginThrottleService->clearLoginAttempts($request);
 
-            // activity()->by(auth()->user())->log(ActivityType::Login);
+            activity()->by(auth()->user())->log(ActivityType::Login);
         } else {
             $this->loginThrottleService->incrementLoginAttempts($request);
 
@@ -55,7 +56,7 @@ class AuthService
         $user = auth()->user();
         Auth::logout();
         request()->session()->invalidate();
-        // activity()->by($user)->log(ActivityType::Logout);
+        activity()->by($user)->log(ActivityType::Logout);
     }
 
     public function validateUserPassword(User $user, string $password)
@@ -64,6 +65,6 @@ class AuthService
             return true;
         }
 
-        // throw new AppException(Error::InvalidPassword);
+        throw new AppException(Error::InvalidPassword);
     }
 }
