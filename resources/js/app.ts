@@ -9,9 +9,8 @@ import Api from '@/api.js'
 import Layout from '@/layouts/Layout.vue'
 
 import axios from 'axios'
-window.axios = axios
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+(window as any).axios = axios
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 const pinia = createPinia()
 const app = createApp(Layout)
@@ -23,7 +22,7 @@ const authStore = useAuthStore()
 Api.me()
     .then((response) => {
         if (response.authenticated) {
-            authStore.authenticate(response.name)
+            authStore.authenticate(response.name, response.admin)
         }
     })
     .catch((error) => {

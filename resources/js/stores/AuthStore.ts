@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia'
 
+type State = {
+    isLoggedIn: boolean
+    user: {
+        name: string | null,
+        isAdmin: boolean
+    }
+}
+
 export const useAuthStore = defineStore('auth', {
-    state: () => ({
+    state: (): State => ({
         isLoggedIn: false,
         user: {
             name: null,
@@ -9,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
         }
     }),
     actions: {
-        authenticate(name, isAdmin) {
+        authenticate(name: string, isAdmin: boolean) {
             this.isLoggedIn = true
             this.user.name = name
             this.user.isAdmin = isAdmin

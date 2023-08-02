@@ -34,7 +34,7 @@
         </div>
     </Form>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import Api from '@/api.js'
 import * as yup from 'yup'

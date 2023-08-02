@@ -22,3 +22,4 @@
 -   Execute migrations `php artisan migrate`
 -   Install node modules `npm install`
 -   Build app using `npm run dev` or `npm run build`
+-   Start app `php artisan serve`

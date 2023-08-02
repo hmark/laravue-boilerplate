@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravue Boilerplate</title>
-        @vite('resources/js/app.js')
+        @vite('resources/js/app.ts')
     </head>
     <body class="antialiased">
         <div id="app">

@@ -28,6 +28,6 @@
         </div>
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import RegisterForm from "@/forms/RegisterForm.vue";
 </script>

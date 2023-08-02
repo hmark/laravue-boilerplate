@@ -26,8 +26,8 @@
                 </ul>
                 <hr>
                 <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="" class="rounded-circle me-2" width="32" height="32">
                         <strong>{{ authStore.user.name }}</strong>
                     </a>
@@ -42,9 +42,9 @@
     </template>
 </template>
 
-<script setup>
-import Api from '@/api.js'
-import { useAuthStore } from '@/stores/AuthStore.js'
+<script setup lang="ts">
+import Api from '@/api'
+import { useAuthStore } from '@/stores/AuthStore'
 import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()

@@ -21,12 +21,12 @@
         </div>
     </Form>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-import Api from '@/api.js'
+import Api from '@/api'
 import * as yup from 'yup'
 import { Form, Field, ErrorMessage } from 'vee-validate'
-import { useAuthStore } from '@/stores/AuthStore.js'
+import { useAuthStore } from '@/stores/AuthStore'
 import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
