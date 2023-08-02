@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Server",
+            "type": "shell",
+            "command": "php artisan serve",
+            "windows": {
+                "command": "php artisan serve"
+            },
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "runOptions": {
+                "runOn": "folderOpen",
+            }
+        },
+        {
+            "label": "Start App",
+            "type": "shell",
+            "command": "npm run dev",
+            "windows": {
+                "command": "npm run dev"
+            },
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "runOptions": {
+                "runOn": "folderOpen",
+            }
+        },
+        {
+            "label": "SSH Tunnel",
+            "type": "shell",
+            "command": "ssh -i ~/.ssh/<APPDIR>  -N -v -L 13307:127.0.0.1:3306 <SSH_USER>@<SSH_HOST>",
+            "windows": {
+                "command": "ssh -i ~/.ssh/<APPDIR>  -N -v -L 13307:127.0.0.1:3306 <SSH_USER>@<SSH_HOST>"
+            },
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "runOptions": {
+                "runOn": "folderOpen",
+            }
+        }
+    ]
+}
