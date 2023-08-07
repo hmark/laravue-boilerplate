@@ -37,8 +37,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Api from '@/api.js'
-import * as yup from 'yup'
-import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useAuthStore } from '@/stores/AuthStore.js'
 import { useRouter } from 'vue-router'
 
