@@ -9,7 +9,6 @@
 -   Bootstrap 5.2.3
 -   Bootstrap Icons 1.10.3
 -   Laravel Sanctum 3.2
--   Vee-Validate 4.7.4 (using Yup schemas)
 -   Pinia 2.0.32
 -   Laravel Actions 2.5
 
