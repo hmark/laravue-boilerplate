@@ -4,7 +4,9 @@ namespace App\Enums;
 
 enum ActivityType: string
 {
-    case Login = "Login";
-    case Logout = "Logout";
+    case LoginCookie = "LoginCookie";
+    case LogoutCookie = "LogoutCookie";
     case Register = "Register";
+    case LoginToken = "LoginToken";
+    case LogoutToken = "LogoutToken";
 }

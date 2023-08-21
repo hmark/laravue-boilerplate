@@ -12,7 +12,7 @@ export default {
     },
 
     async login(data: Object) {
-        const response = await axios.post('/api/login', data).catch(this.errorHandler);
+        const response = await axios.post('/api/login/cookie', data).catch(this.errorHandler);
         return response?.data;
     },
 
@@ -22,7 +22,7 @@ export default {
     },
 
     async logout(data?: Object) {
-        const response = await axios.post('/api/logout', data).catch(this.errorHandler);
+        const response = await axios.post('/api/logout/cookie', data).catch(this.errorHandler);
         return response?.data;
     },
 

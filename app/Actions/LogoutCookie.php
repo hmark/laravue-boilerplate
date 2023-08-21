@@ -7,7 +7,7 @@ use App\Traits\ActionRequestValidation;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class Logout
+class LogoutCookie
 {
     use AsAction, ActionRequestValidation;
 
@@ -32,6 +32,6 @@ class Logout
 
     public function handle(): void
     {
-        $this->authService->logout();
+        $this->authService->logoutCookie();
     }
 }

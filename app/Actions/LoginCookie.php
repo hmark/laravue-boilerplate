@@ -8,7 +8,7 @@ use App\Traits\ActionRequestValidation;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class Login
+class LoginCookie
 {
     use AsAction, ActionRequestValidation;
 
@@ -36,7 +36,7 @@ class Login
 
     public function handle(string $email, string $password): MeResource
     {
-        $this->authService->loginWithCredentials($email, $password);
+        $this->authService->loginCookieWithCredentials($email, $password);
 
         $name = auth()->user()->name;
         $isAdmin = auth()->user()->is_admin;

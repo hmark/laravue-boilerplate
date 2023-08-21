@@ -24,7 +24,7 @@ class AuthService
         Auth::login($user);
     }
 
-    public function loginWithCredentials(string $email, string $password): void
+    public function loginCookieWithCredentials(string $email, string $password): void
     {
         $request = request();
 
@@ -43,7 +43,7 @@ class AuthService
             $request->session()->regenerate();
             $this->loginThrottleService->clearLoginAttempts($request);
 
-            activity()->by(auth()->user())->log(ActivityType::Login);
+            activity()->by(auth()->user())->log(ActivityType::LoginCookie);
         } else {
             $this->loginThrottleService->incrementLoginAttempts($request);
 
@@ -51,12 +51,50 @@ class AuthService
         }
     }
 
-    public function logout()
+    public function loginTokenWithCredentials(string $name, string $password, string $deviceName): string
+    {
+        $request = request();
+
+        if ($this->loginThrottleService->hasTooManyLoginAttempts($request)) {
+            try {
+                $this->loginThrottleService->sendLockoutResponse($request);
+            } catch (ValidationException $exception) {
+                throw new AppException(Error::TooManyLogins, $exception->errors());
+            }
+        }
+
+        $user = User::where('name', $name)->first();
+
+        if (!$user || !Hash::check($password, $user->password)) {
+            $this->loginThrottleService->incrementLoginAttempts($request);
+            throw new AppException(Error::InvalidLogin);
+        }
+
+        $this->loginThrottleService->clearLoginAttempts($request);
+        Auth::onceUsingId([$user->id]);
+        activity()->by($user)->log(ActivityType::LoginToken);
+
+        $user->tokens()
+            ->where('tokenable_id', '=', $user->id)
+            ->where('name', '=', $deviceName)
+            ->delete();
+
+        return $user->createToken($deviceName)->plainTextToken;
+    }
+
+    public function logoutCookie()
     {
         $user = auth()->user();
         Auth::logout();
         request()->session()->invalidate();
-        activity()->by($user)->log(ActivityType::Logout);
+        activity()->by($user)->log(ActivityType::LogoutCookie);
+    }
+
+    public function logoutToken()
+    {
+        $user = auth()->user();
+        request()->user()->currentAccessToken()->delete();
+        activity()->by($user)->log(ActivityType::LogoutToken);
     }
 
     public function validateUserPassword(User $user, string $password)
