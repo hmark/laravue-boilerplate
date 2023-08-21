@@ -35,9 +35,9 @@ class LoginToken
         return $this->handle(...array_values($request->validated()));
     }
 
-    public function handle(string $email, string $password, string $deviceName): MeResource
+    public function handle(string $email, string $password, string $deviceId): MeResource
     {
-        $token = $this->authService->loginTokenWithCredentials($email, $password, $deviceName);
+        $token = $this->authService->loginTokenWithCredentials($email, $password, $deviceId);
 
         $name = auth()->user()->name;
         $isAdmin = auth()->user()->is_admin;

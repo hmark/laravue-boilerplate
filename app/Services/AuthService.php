@@ -51,7 +51,7 @@ class AuthService
         }
     }
 
-    public function loginTokenWithCredentials(string $email, string $password, string $deviceName): string
+    public function loginTokenWithCredentials(string $email, string $password, string $deviceId): string
     {
         $request = request();
 
@@ -76,10 +76,10 @@ class AuthService
 
         $user->tokens()
             ->where('tokenable_id', '=', $user->id)
-            ->where('name', '=', $deviceName)
+            ->where('name', '=', $deviceId)
             ->delete();
 
-        return $user->createToken($deviceName)->plainTextToken;
+        return $user->createToken($deviceId)->plainTextToken;
     }
 
     public function logoutCookie()
