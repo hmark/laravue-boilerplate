@@ -24,7 +24,7 @@ class LoginToken
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'email' => 'required|string',
             'password' => 'required|string',
             'device_name' => 'required|string',
         ];
@@ -35,10 +35,11 @@ class LoginToken
         return $this->handle(...array_values($request->validated()));
     }
 
-    public function handle(string $name, string $password, string $deviceName): MeResource
+    public function handle(string $email, string $password, string $deviceName): MeResource
     {
-        $token = $this->authService->loginTokenWithCredentials($name, $password, $deviceName);
+        $token = $this->authService->loginTokenWithCredentials($email, $password, $deviceName);
 
+        $name = auth()->user()->name;
         $isAdmin = auth()->user()->is_admin;
 
         return (new MeResource(true, $name, $isAdmin, $token));

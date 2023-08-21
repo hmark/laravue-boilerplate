@@ -32,6 +32,6 @@ class GetMe
         $name = auth()->check() ? auth()->user()->name : '';
         $isAdmin = auth()->check() ? auth()->user()->is_admin : false;
 
-        return new MeResource($isAuthenticated, $name, $isAdmin);
+        return new MeResource($isAuthenticated, $name, $isAdmin, null);
     }
 }

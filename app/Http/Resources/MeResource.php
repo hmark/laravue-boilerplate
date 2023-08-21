@@ -8,7 +8,7 @@ class MeResource extends JsonResource
 {
     public static $wrap = null;
 
-    public function __construct(private bool $isAuthenticated, private string $name, private bool $isAdmin)
+    public function __construct(private bool $isAuthenticated, private string $name, private bool $isAdmin, private ?string $token)
     {
     }
 
@@ -20,12 +20,16 @@ class MeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             'authenticated' => $this->isAuthenticated,
             'name' => $this->name,
             'admin' => $this->isAdmin,
         ];
 
-        return parent::toArray($request);
+        if (!empty($this->token)) {
+            $data['token'] = $this->token;
+        }
+
+        return $data;
     }
 }

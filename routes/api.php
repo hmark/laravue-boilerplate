@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 // guest
 Route::post('login/cookie', LoginCookie::class);
-// Route::post('login/token', LoginToken::class);
+Route::post('login/token', LoginToken::class);
 Route::post('register', Register::class);
 
 // public
@@ -18,4 +18,4 @@ Route::get('me', GetMe::class);
 
 // auth
 Route::post('logout/cookie', LogoutCookie::class);
-// Route::post('logout/token', LogoutToken::class);
+Route::post('logout/token', LogoutToken::class);

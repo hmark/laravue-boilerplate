@@ -51,7 +51,7 @@ class AuthService
         }
     }
 
-    public function loginTokenWithCredentials(string $name, string $password, string $deviceName): string
+    public function loginTokenWithCredentials(string $email, string $password, string $deviceName): string
     {
         $request = request();
 
@@ -63,7 +63,7 @@ class AuthService
             }
         }
 
-        $user = User::where('name', $name)->first();
+        $user = User::where('email', $email)->first();
 
         if (!$user || !Hash::check($password, $user->password)) {
             $this->loginThrottleService->incrementLoginAttempts($request);
