@@ -10,13 +10,17 @@
 
         <template #submit="slotProps">
             <div class="col-12">
-                <button class="btn btn-primary w-100" :disabled="slotProps.submitting">Login</button>
+                <button class="btn btn-primary w-100" :disabled="slotProps.submitting">
+                    <span v-if="slotProps.submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Login
+                </button>
             </div>
+            <div v-if="error" class="invalid-feedback d-block">{{ error }}</div>
         </template>
     </Form>
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import InputField from '@/validation/InputField.vue'
 import Form from '@/validation/Form.vue'
@@ -29,17 +33,19 @@ const user = reactive({
     email: '',
     password: ''
 })
+const error = ref(null)
 
 async function submit() {
-    // await promiseTimeout(2000)
+    error.value = null
+
     await Api.sanctum().then(async (response) => {
-        await Api.login({
-            email: user.email,
-            password: user.password,
-        })
+        await Api.login(user)
             .then(async (response) => {
                 authStore.authenticate(response.id, response.name, response.admin)
                 router.push("/")
+            })
+            .catch(async (errorMessage) => {
+                error.value = errorMessage
             })
     })
 }

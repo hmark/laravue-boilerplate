@@ -1,90 +1,64 @@
 <template>
-    <Form ref="form" :validation-schema="schema" @submit="submit" class="row g-3">
+    <Form :on-validated="submit" class="row g-3">
         <div class="col-12">
-            <div class="input-group">
-                <Field name="name" type="text" class="form-control" placeholder="Name"></Field>
-                <ErrorMessage name="name" class="invalid-feedback d-block" />
+            <InputField v-model="user.name" type="text" name="name" placeholder="Name" rules="required|min:6|max:20" />
+        </div>
+
+        <div class="col-12">
+            <InputField v-model="user.email" type="email" name="email" placeholder="Email" rules="required|email" />
+        </div>
+
+        <div class="col-12">
+            <InputField v-model="user.password" type="password" name="password" placeholder="Password" rules="required|min:8" />
+        </div>
+
+        <div class="col-12">
+            <InputField v-model="user.password_confirmation" type="password" name="password_confirmation" placeholder="Repeat Password" rules="required|min:8" />
+        </div>
+
+        <template #submit="slotProps">
+            <div class="col-12">
+                <button class="btn btn-primary w-100" :disabled="slotProps.submitting">
+                    <span v-if="slotProps.submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Register
+                </button>
             </div>
-        </div>
-        <div class="col-12">
-            <div class="input-group">
-                <Field name="email" type="email" class="form-control" placeholder="Email"></Field>
-                <ErrorMessage name="email" class="invalid-feedback d-block" />
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="input-group">
-                <Field name="password" type="password" class="form-control" placeholder="Password"></Field>
-                <ErrorMessage name="password" class="invalid-feedback d-block" />
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="input-group">
-                <Field name="password_confirmation" type="password" class="form-control" placeholder="Repeat Password">
-                </Field>
-                <ErrorMessage name="password_confirmation" class="invalid-feedback d-block" />
-            </div>
-        </div>
-        <div class="col-12">
-            <button class="btn btn-primary w-100" :disabled="submitting">
-                <span v-if="submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Register
-            </button>
-            <span v-if="serverError" role="alert" class="invalid-feedback d-block">{{ serverError }}</span>
-        </div>
+            <div v-if="error" class="invalid-feedback d-block">{{ error }}</div>
+        </template>
+
     </Form>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-import Api from '@/api.js'
-import { useAuthStore } from '@/stores/AuthStore.js'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import InputField from '@/validation/InputField.vue'
+import Form from '@/validation/Form.vue'
+import { useAuthStore } from '@/stores/AuthStore'
+import Api from '@/api'
 
 const authStore = useAuthStore()
 const router = useRouter()
-
-const emit = defineEmits(['submitted'])
-defineExpose({ reset })
-
-const schema = yup.object().shape({
-    name: yup.string().required().min(6).max(20).label('Name'),
-    email: yup.string().required().email().label('Email'),
-    password: yup.string().required().min(8).label('Password'),
-    password_confirmation: yup
-        .string()
-        .required()
-        .oneOf([yup.ref('password')], 'Passwords must match')
-        .label('Confirmed Password'),
+const user = reactive({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
 })
-const serverError = ref('')
-const submitting = ref(false)
-const form = ref(null)
+const error = ref(null)
 
-function reset() {
-    form.value.resetForm()
-}
+async function submit() {
+    error.value = null
 
-function submit(values) {
-    submitting.value = true
-    serverError.value = ''
-
-    Api.register({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        password_confirmation: values.password_confirmation,
+    await Api.sanctum().then(async (response) => {
+        await Api.register(user)
+            .then(async (response) => {
+                authStore.authenticate(response.id, response.name, false)
+                router.push("/")
+            })
+            .catch(async (errorMessage) => {
+                error.value = errorMessage
+            })
     })
-        .then((response) => {
-            authStore.authenticate(values.name, false)
-            emit("submitted");
-            router.push("/")
-        })
-        .catch((error) => {
-            serverError.value = error.message
-        })
-        .finally(() => {
-            submitting.value = false
-        })
 }
 </script>
 

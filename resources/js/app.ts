@@ -32,5 +32,3 @@ Api.me()
         app.use(router)
             .mount('#app')
     })
-
-

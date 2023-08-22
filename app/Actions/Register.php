@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Http\Resources\UserResource;
+use App\Http\Resources\MeResource;
 use App\Services\AuthService;
 use App\Services\UserService;
 use App\Traits\ActionRequestValidation;
@@ -21,7 +21,7 @@ class Register
 
     public function authorize()
     {
-        return auth()->guest() && config('k4rally.registration');
+        return auth()->guest();
     }
 
     public function rules()
@@ -33,17 +33,17 @@ class Register
         ];
     }
 
-    public function asController(ActionRequest $request): UserResource
+    public function asController(ActionRequest $request): MeResource
     {
         return $this->handle(...array_values($request->validated()));
     }
 
-    public function handle(string $name, string $email, string $password): UserResource
+    public function handle(string $name, string $email, string $password): MeResource
     {
         $user = $this->userService->create($name, $email, $password);
 
         $this->authService->login($user);
 
-        return new UserResource($user);
+        return new MeResource(true, $user->name, false, null);
     }
 }
