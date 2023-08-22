@@ -41,6 +41,6 @@ class LoginCookie
         $name = auth()->user()->name;
         $isAdmin = auth()->user()->is_admin;
 
-        return new MeResource(true, $name, $isAdmin);
+        return new MeResource(true, $name, $isAdmin, null);
     }
 }
