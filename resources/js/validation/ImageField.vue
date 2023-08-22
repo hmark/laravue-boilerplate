@@ -25,7 +25,7 @@ import { inject, nextTick, ref } from 'vue'
 import useValidators from "@/validation/useValidators.js"
 import DropZone from '@/validation/DropZone.vue'
 
-const fileInput = ref(null)
+const fileInput = ref<HTMLInputElement>()
 
 const props = defineProps({
     modelValue: {
@@ -48,7 +48,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const registerField = inject('registerField')
+const registerField: Function | undefined = inject('registerField')
 const { validate, errors } = useValidators()
 const hidePreview = ref(false)
 
@@ -66,40 +66,50 @@ function lateValidateInput() {
 }
 
 function selectImage() {
-    fileInput.value.click()
+    if (fileInput.value) {
+        fileInput.value.click()
+    }
 }
 
 function pickFile() {
     let input = fileInput.value
-    let file = input.files
-    if (file && file[0]) {
-        let reader = new FileReader
-        reader.onload = e => {
-            setImage(e.target.result)
+    if (input) {
+        let file = input.files
+        if (file && file[0]) {
+            let reader = new FileReader
+            reader.onload = e => {
+                setImage((e.target as FileReader).result)
+            }
+            reader.readAsDataURL(file[0])
         }
-        reader.readAsDataURL(file[0])
     }
 }
 
-function setImage(image) {
+function setImage(image: string | ArrayBuffer | null) {
     emit('update:modelValue', image)
     lateValidateInput()
 }
 
 function removeImage() {
     const dT = new DataTransfer();
-    fileInput.value.files = dT.files;
+    if (fileInput.value) {
+        fileInput.value.files = dT.files;
+    }
     setImage(null)
 }
 
-function dropFile(newFiles) {
+function dropFile(newFiles: any) {
     const dT = new DataTransfer();
     dT.items.add(newFiles[0]);
-    fileInput.value.files = dT.files
+    if (fileInput.value) {
+        fileInput.value.files = dT.files
+    }
     pickFile()
 }
 
-registerField(validateInput)
+if (registerField) {
+    registerField(validateInput)
+}
 </script>
 
 <style scoped lang="scss">

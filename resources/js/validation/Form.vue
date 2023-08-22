@@ -18,15 +18,11 @@ const props = defineProps({
     }
 })
 const form = ref(null)
-const fieldValidators = reactive([])
+const fieldValidators = reactive<Function[]>([])
 const submitting = ref(false)
 
-function registerField(validate) {
+function registerField(validate: Function) {
     fieldValidators.push(validate)
-}
-
-function reset() {
-    form.value.resetForm()
 }
 
 async function submit() {
@@ -47,6 +43,4 @@ async function submit() {
 
     submitting.value = false
 }
-
-defineExpose({ reset })
 </script>

@@ -22,7 +22,7 @@ import useValidators from "@/validation/useValidators.js"
 
 const props = defineProps({
     modelValue: {
-        type: Array,
+        type: Array<string>,
         default: []
     },
     name: {
@@ -38,7 +38,7 @@ const props = defineProps({
         default: ''
     },
     existingTags: {
-        type: Array,
+        type: Array<string>,
         default: []
     },
 })
@@ -46,7 +46,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const input = ref('')
-const inputRef = ref(null)
+const inputRef = ref<HTMLInputElement>()
 const availableTags = computed(() => {
     if (input.value !== '') {
         var selectedTags = props.modelValue.map(tag => tag.toLowerCase())
@@ -60,16 +60,16 @@ const availableTags = computed(() => {
     }
 })
 
-const registerField = inject('registerField')
+const registerField: Function | undefined = inject('registerField')
 const { validate, errors } = useValidators()
 
 function validateInput() {
-    validate(props.rules, props.name, props.modelValue)
+    validate(props.rules, props.name, props.modelValue.join('|'))
 
     return errors.length === 0
 }
 
-function remove(tag) {
+function remove(tag: string) {
     props.modelValue.splice(props.modelValue.indexOf(tag), 1)
 }
 
@@ -81,14 +81,19 @@ function addInputTag() {
     }
 }
 
-function addTag(tag) {
+function addTag(tag: string) {
     props.modelValue.push(tag)
     emit('update:modelValue', props.modelValue)
     input.value = ''
-    inputRef.value.focus()
+
+    if (inputRef.value) {
+        inputRef.value.focus()
+    }
 }
 
-registerField(validateInput)
+if (registerField) {
+    registerField(validateInput)
+}
 </script>
 
 <style scoped>

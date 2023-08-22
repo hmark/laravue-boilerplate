@@ -5,8 +5,8 @@
         </li>
     </div>
     <div class="input-group p-0 mt-0">
-        <input :value="props.modelValue" @input="onInput($event)" @blur="onBlur()" @keyup.enter="$event.target.blur()" type="text" class="form-control"
-            autocomplete="off" spellcheck="false" :placeholder="props.placeholder">
+        <input :value="props.modelValue" @input="onInput($event)" @blur="onBlur()" @keyup.enter="($event.target as HTMLInputElement).blur()" type="text"
+            class="form-control" autocomplete="off" spellcheck="false" :placeholder="props.placeholder">
         <button ref="button" class="btn btn-primary px-4"><i class="bi bi-search fw-bolder"></i></button>
     </div>
     <div class="dropdown m-0 p-0">
@@ -40,18 +40,18 @@ const props = defineProps({
         default: ''
     },
     existingTags: {
-        type: Array,
+        type: Array<string>,
         default: []
     },
     pickedTags: {
-        type: Array,
+        type: Array<string>,
         default: []
     }
 })
 
 const emit = defineEmits(['update:modelValue'])
 
-const button = ref(null)
+const button = ref<HTMLButtonElement>()
 const isFocused = ref(false)
 const availableTags = computed(() => {
     if (props.modelValue !== '') {
@@ -66,7 +66,7 @@ const availableTags = computed(() => {
     }
 })
 
-const registerField = inject('registerField')
+const registerField: Function | undefined = inject('registerField')
 const { validate, errors } = useValidators()
 
 function validateInput() {
@@ -75,24 +75,25 @@ function validateInput() {
     return errors.length === 0
 }
 
-function remove(tag) {
+function remove(tag: string) {
     props.pickedTags.splice(props.pickedTags.indexOf(tag), 1)
     submit()
 }
 
-function addTag(tag) {
+function addTag(tag: string) {
     props.pickedTags.push(tag)
-    props.modelValue = ''
     emit('update:modelValue', '')
     submit()
 }
 
 function submit() {
-    button.value.click()
+    if (button.value) {
+        button.value.click()
+    }
 }
 
-function onInput(event) {
-    emit('update:modelValue', event.target.value)
+function onInput(event: Event) {
+    emit('update:modelValue', (event.target as HTMLInputElement).value)
     isFocused.value = true
 }
 
@@ -100,7 +101,9 @@ function onBlur() {
     isFocused.value = false
 }
 
-registerField(validateInput)
+if (registerField) {
+    registerField(validateInput)
+}
 </script>
 
 <style scoped>

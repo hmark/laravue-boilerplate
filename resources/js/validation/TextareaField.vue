@@ -1,8 +1,8 @@
 <template>
     <div class="input-group">
-        <textarea @input="$emit('update:modelValue', $event.target.value)" :value="modelValue" @keyup="validateInput" @blur="validateInput" :name="props.name"
-            :rows="props.rows" :placeholder="props.placeholder" type="text" class="form-control"></textarea>
-        <div v-if="errors[props.name]" class="invalid-feedback d-block">{{ errors[props.name] }}</div>
+        <textarea @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" :value="modelValue" @keyup="validateInput" @blur="validateInput"
+            :name="props.name" :rows="props.rows" :placeholder="props.placeholder" type="text" class="form-control"></textarea>
+        <div v-for="error in errors" class="invalid-feedback d-block">{{ error }}</div>
     </div>
 </template>
 
@@ -35,7 +35,7 @@ const props = defineProps({
 
 defineEmits(['update:modelValue'])
 
-const registerField = inject('registerField')
+const registerField: Function | undefined = inject('registerField')
 const { validate, errors } = useValidators()
 
 function validateInput() {
@@ -44,5 +44,7 @@ function validateInput() {
     return errors.length === 0
 }
 
-registerField(validateInput)
+if (registerField) {
+    registerField(validateInput)
+}
 </script>

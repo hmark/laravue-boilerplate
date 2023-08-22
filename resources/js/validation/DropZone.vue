@@ -9,7 +9,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const emit = defineEmits(['files-dropped'])
 
 let active = ref(false)
-let inActiveTimeout = null
+let inActiveTimeout: ReturnType<typeof setTimeout>
 
 function setActive() {
     active.value = true
@@ -21,12 +21,12 @@ function setInactive() {
     }, 50)
 }
 
-function onDrop(e) {
+function onDrop(e: DragEvent) {
     setInactive()
-    emit('files-dropped', [...e.dataTransfer.files])
+    emit('files-dropped', [...(e.dataTransfer as DataTransfer).files])
 }
 
-function preventDefaults(e) {
+function preventDefaults(e: Event) {
     e.preventDefault()
 }
 
