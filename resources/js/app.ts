@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import 'bootstrap'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import '../scss/bootstrap-darkly-theme.css'
+import '../scss/bootstrap-theme.css'
 import '../scss/custom.scss'
 import router from '@/router'
 import Api from '@/api.js'
@@ -22,7 +22,7 @@ const authStore = useAuthStore()
 Api.me()
     .then((response) => {
         if (response.authenticated) {
-            authStore.authenticate(response.name, response.admin)
+            authStore.authenticate(response.id, response.name, response.admin)
         }
     })
     .catch((error) => {
