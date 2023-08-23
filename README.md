@@ -12,6 +12,7 @@
 -   Pinia 2.0.32
 -   Laravel Actions 2.5
 -   Day.js 1.11.9
+-   Vue Valid Forms 0.0.1
 
 ## Setup
 

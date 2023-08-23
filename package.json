@@ -17,6 +17,7 @@
         "dayjs": "^1.11.9",
         "pinia": "^2.0.32",
         "vue": "^3.3.4",
-        "vue-router": "^4.0.11"
+        "vue-router": "^4.0.11",
+        "vue-valid-forms": "^0.0.4"
     }
 }
