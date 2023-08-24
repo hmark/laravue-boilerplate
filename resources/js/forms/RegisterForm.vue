@@ -31,8 +31,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import InputField from '@/validation/InputField.vue'
-import Form from '@/validation/Form.vue'
+import { Form, InputField } from 'vue-valid-forms'
 import { useAuthStore } from '@/stores/AuthStore'
 import Api from '@/api'
 
