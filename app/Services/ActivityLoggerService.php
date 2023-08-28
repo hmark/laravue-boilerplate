@@ -43,7 +43,7 @@ class ActivityLoggerService
 
     public function log(ActivityType $type): ActivityLog
     {
-        $activity = $this->activity;
+        $activity = $this->getActivity();
         $activity->type = $type->value;
         $activity->save();
 
