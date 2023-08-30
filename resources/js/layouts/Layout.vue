@@ -4,9 +4,7 @@
     </template>
     <template v-else>
         <main>
-            <h1 class="visually-hidden">Sidebars examples</h1>
-
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+            <aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <i class="bi bi-bootstrap-fill me-2 bi-lg" style="font-size: 2rem"></i>
                     <span class="fs-4">Dashboard</span>
@@ -35,7 +33,7 @@
                         <li><a @click.prevent="logout()" class="dropdown-item" href="#">Sign out</a></li>
                     </ul>
                 </div>
-            </div>
+            </aside>
 
             <router-view></router-view>
         </main>
@@ -59,13 +57,13 @@ function logout() {
 </script>
 
 <style scoped>
+aside {
+    position: fixed;
+    width: 280px;
+    height: 100vh;
+}
+
 main {
     display: flex;
-    flex-wrap: nowrap;
-    height: 100vh;
-    height: -webkit-fill-available;
-    max-height: 100vh;
-    overflow-x: auto;
-    overflow-y: hidden;
 }
 </style>
