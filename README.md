@@ -13,6 +13,7 @@
 -   Laravel Actions 2.5
 -   Day.js 1.11.9
 -   Vue Valid Forms 0.0.4
+-   Laravel Telescope 4.17
 
 ## Setup
 
