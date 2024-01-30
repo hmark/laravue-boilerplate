@@ -16,7 +16,7 @@
                     <li class="nav-item">
                         <router-link to="/" class="nav-link">
                             <i class="bi bi-house me-2"></i> Page 1
-                        </router-link>e
+                        </router-link>
                     </li>
                     <li>
                         <router-link to="/page2" class="nav-link text-white">
