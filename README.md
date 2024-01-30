@@ -25,3 +25,12 @@
 -   Install node modules `npm install`
 -   Build app using `npm run dev` or `npm run build`
 -   Start app `php artisan serve`
+
+
+## Optional Setup
+
+-   Setup VS Code tasks `mv .vscode/tasks.json.example .vscode/tasks.json`
+-   Update UsersSeeder `database/seeders/UsersSeeder.php` and seed users table `php artisan db:seed --class=UsersSeeder`
+-   Disable backend registration and token routes `routes/api.php` and on the frontend `resources/js/router.ts` + `resources/js/pages/Login.vue`
+-   Setup Auto-Deploy
+-   Update Readme
