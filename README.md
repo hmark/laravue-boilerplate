@@ -2,18 +2,18 @@
 
 ## Tech Stack
 
--   Laravel 10
+-   Laravel 11
 -   Vue 3.2.47
 -   Vite 4
 -   Axios 1.1.2
 -   Bootstrap 5.2.3
 -   Bootstrap Icons 1.10.3
--   Laravel Sanctum 3.2
+-   Laravel Sanctum 4.0
 -   Pinia 2.0.32
 -   Laravel Actions 2.5
 -   Day.js 1.11.9
 -   Vue Valid Forms 0.0.4
--   Laravel Telescope 4.17
+-   Laravel Telescope 5.0
 
 ## Setup
 
