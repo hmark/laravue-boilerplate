@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
--   Laravel 11
+-   Laravel 12
 -   Vue 3.2.47
 -   Vite 4
 -   Axios 1.1.2
