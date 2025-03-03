@@ -6,6 +6,7 @@ use App\Http\Resources\MeResource;
 use App\Services\AuthService;
 use App\Services\UserService;
 use App\Traits\ActionRequestValidation;
+use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -21,7 +22,7 @@ class Register
 
     public function authorize()
     {
-        return auth()->guest();
+        return Auth::guest();
     }
 
     public function rules()

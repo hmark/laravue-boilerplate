@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\Http\Resources\MeResource;
 use App\Services\AuthService;
 use App\Traits\ActionRequestValidation;
+use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -18,7 +19,7 @@ class LoginToken
 
     public function authorize()
     {
-        return auth()->guest();
+        return Auth::guest();
     }
 
     public function rules()
@@ -39,8 +40,8 @@ class LoginToken
     {
         $token = $this->authService->loginTokenWithCredentials($email, $password, $deviceId);
 
-        $name = auth()->user()->name;
-        $isAdmin = auth()->user()->is_admin;
+        $name = Auth::user()->name;
+        $isAdmin = Auth::user()->is_admin;
 
         return (new MeResource(true, $name, $isAdmin, $token));
     }

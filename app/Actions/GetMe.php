@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Http\Resources\MeResource;
 use App\Traits\ActionRequestValidation;
+use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -28,9 +29,10 @@ class GetMe
 
     public function handle(): MeResource
     {
-        $isAuthenticated = auth()->check();
-        $name = auth()->check() ? auth()->user()->name : '';
-        $isAdmin = auth()->check() ? auth()->user()->is_admin : false;
+        
+        $isAuthenticated = Auth::check();
+        $name = Auth::check() ? Auth::user()->name : '';
+        $isAdmin = Auth::check() ? Auth::user()->is_admin : false;
 
         return new MeResource($isAuthenticated, $name, $isAdmin, null);
     }

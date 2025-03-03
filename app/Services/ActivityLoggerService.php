@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enums\ActivityType;
 use App\Models\ActivityLog;
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
 class ActivityLoggerService
@@ -27,7 +28,7 @@ class ActivityLoggerService
         return $this;
     }
 
-    public function by(User | Model $model): static
+    public function by(User | Authenticatable | Model $model): static
     {
         $this->getActivity()->causer()->associate($model);
 

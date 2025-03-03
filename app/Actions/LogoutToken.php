@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Services\AuthService;
 use App\Traits\ActionRequestValidation;
+use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -17,7 +18,7 @@ class LogoutToken
 
     public function authorize()
     {
-        return auth()->check();
+        return Auth::check();
     }
 
     public function rules()

@@ -43,7 +43,7 @@ class AuthService
             $request->session()->regenerate();
             $this->loginThrottleService->clearLoginAttempts($request);
 
-            activity()->by(auth()->user())->log(ActivityType::LoginCookie);
+            activity()->by(Auth::user())->log(ActivityType::LoginCookie);
         } else {
             $this->loginThrottleService->incrementLoginAttempts($request);
 
@@ -84,7 +84,7 @@ class AuthService
 
     public function logoutCookie()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         Auth::logout();
         request()->session()->invalidate();
         activity()->by($user)->log(ActivityType::LogoutCookie);
@@ -92,7 +92,7 @@ class AuthService
 
     public function logoutToken()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         request()->user()->currentAccessToken()->delete();
         activity()->by($user)->log(ActivityType::LogoutToken);
     }
