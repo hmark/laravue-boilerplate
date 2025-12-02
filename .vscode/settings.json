@@ -3,4 +3,6 @@
         "titleBar.activeBackground": "#48b400",
         "titleBar.inactiveBackground": "#48b400",
     },
+    "laravel-pint.enable": true,
+    "laravel-pint.enableDebugLogs": true,
 }

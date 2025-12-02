@@ -1,17 +1,37 @@
 <template>
     <Form :on-validated="submit" class="row g-3">
         <div class="col-12">
-            <InputField v-model="user.email" type="email" name="email" placeholder="Email" rules="required|email" />
+            <InputField
+                v-model="user.email"
+                type="email"
+                name="email"
+                placeholder="Email"
+                rules="required|email"
+            />
         </div>
 
         <div class="col-12">
-            <InputField v-model="user.password" type="password" name="password" placeholder="Password" rules="required" />
+            <InputField
+                v-model="user.password"
+                type="password"
+                name="password"
+                placeholder="Password"
+                rules="required"
+            />
         </div>
 
         <template #submit="slotProps">
             <div class="col-12">
-                <button class="btn btn-primary w-100" :disabled="slotProps.submitting">
-                    <span v-if="slotProps.submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <button
+                    class="btn btn-primary w-100"
+                    :disabled="slotProps.submitting"
+                >
+                    <span
+                        v-if="slotProps.submitting"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
                     Login
                 </button>
             </div>
@@ -22,7 +42,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { Form, InputField } from 'vue-valid-forms'
+import { Form, InputField } from '@/components/form/FormComponents'
 import { useAuthStore } from '@/stores/AuthStore'
 import Api from '@/api'
 
@@ -30,7 +50,7 @@ const authStore = useAuthStore()
 const router = useRouter()
 const user = reactive({
     email: '',
-    password: ''
+    password: '',
 })
 const error = ref(null)
 
@@ -40,8 +60,12 @@ async function submit() {
     await Api.sanctum().then(async (response) => {
         await Api.login(user)
             .then(async (response) => {
-                authStore.authenticate(response.id, response.name, response.admin)
-                router.push("/")
+                authStore.authenticate(
+                    response.id,
+                    response.name,
+                    response.admin
+                )
+                router.push('/')
             })
             .catch(async (errorMessage) => {
                 error.value = errorMessage
@@ -49,4 +73,3 @@ async function submit() {
     })
 }
 </script>
-
