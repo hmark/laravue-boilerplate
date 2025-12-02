@@ -4,7 +4,7 @@
 
 -   Laravel 12
 -   Vue 3.2.47
--   Vite 4
+-   Vite 7
 -   Axios 1.1.2
 -   Bootstrap 5.2.3
 -   Bootstrap Icons 1.10.3
